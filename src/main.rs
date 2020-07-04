@@ -167,6 +167,9 @@ impl std::fmt::Display for Entry {
 
 fn wait_exit(code: i32) {
     let term = Term::stdout();
+    if let Err(e) = term.write_line("") {
+        error!("{}", e.to_string());
+    }
     if code != 0 {
         if let Err(e) = term.write_line(&format!("Exit code: {}.", code)) {
             error!("{}", e.to_string());
